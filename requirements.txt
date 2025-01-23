@@ -1,0 +1,4 @@
+python-dotenv
+
+SQLAlchemy
+pg8000
