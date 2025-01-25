@@ -27,6 +27,13 @@ class Database:
 
         return table.comment
 
+    def get_table_short_name(self, table_name: str) -> str:
+        table = self.metadata.tables[table_name]
+        if table is None or table.name is None:
+            return table_name
+
+        return table.name
+
     def get_primary_keys(self, table_name: str) -> list[str]:
         table = self.metadata.tables[table_name]
         if table is None:

@@ -24,7 +24,8 @@ class PlantumlErd:
             primary_keys = self.database.get_primary_keys(table_name)
             foreign_keys = self.database.get_foreign_keys(table_name)
 
-            puml += f"entity \"{desc}\" as {table_name} " + "{\r\n"
+            table_short_name = self.database.get_table_short_name(table_name)
+            puml += f"entity \"{desc}\" as {table_short_name} " + "{\r\n"
 
             for column in self.database.get_columns(table_name):
                 line = "  "
