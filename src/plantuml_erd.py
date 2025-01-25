@@ -2,11 +2,11 @@ from sqlalchemy import create_engine, inspect, MetaData
 
 
 class PlantumlErd(object):
-    def __init__(self, db_url: str):
+    def __init__(self, database_url: str):
         super().__init__()
 
         self.engine = create_engine(
-            db_url,
+            database_url,
             isolation_level="REPEATABLE READ",
         )
 

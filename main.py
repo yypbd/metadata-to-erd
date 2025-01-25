@@ -7,9 +7,9 @@ from src.plantuml_erd import PlantumlErd
 
 load_dotenv()
 
-ENGINE_URL = os.environ.get("ENGINE_URL")
+DATABASE_URL = os.environ.get("DATABASE_URL")
 
-erd = PlantumlErd(ENGINE_URL)
+erd = PlantumlErd(DATABASE_URL)
 
 schemas = erd.get_schemas()
 
