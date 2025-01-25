@@ -2,16 +2,17 @@ import os
 
 from dotenv import load_dotenv
 
+from src.database import Database
 from src.plantuml_erd import PlantumlErd
 
 
 load_dotenv()
-
 DATABASE_URL = os.environ.get("DATABASE_URL")
 
-erd = PlantumlErd(DATABASE_URL)
+database = Database(DATABASE_URL)
+erd = PlantumlErd(database)
 
-schemas = erd.get_schemas()
+schemas = database.get_schemas()
 
 schema = 'public'
 use_table_comment = True
