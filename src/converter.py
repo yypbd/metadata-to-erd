@@ -1,12 +1,16 @@
 def get_column_type_name(column_type):
-    # if hasattr(column_type, "data_type"):
-    #     name = column_type.data_type.python_type.__name__
-    # elif hasattr(column_type, "python_type"):
+    # TODO : add types
 
-    name = column_type.python_type.__name__
+    if hasattr(column_type, "data_type"):
+        name = column_type.data_type.python_type.__name__
+    elif hasattr(column_type, "python_type"):
+        name = column_type.python_type.__name__
+    else:
+        name = type(column_type).__name__
+
     if name == "str":
         return "text"
-    elif name == "int":
+    elif name == "int" or name == "INTEGER":
         return "number"
     elif name == "datetime":
         return "datetime"
