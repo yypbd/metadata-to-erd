@@ -14,9 +14,9 @@ class PlantumlErd:
 
         self.database.select_schema(schema)
 
-        puml = f"@startuml {schema}\r\n\r\n"
+        puml = f"@startuml {schema}\n\n"
 
-        puml += f"title Entity Relationship Diagram - {schema}\r\n\r\n"
+        puml += f"title Entity Relationship Diagram - {schema}\n\n"
 
         relations = ""
         for table_name in self.database.table_names:
@@ -31,7 +31,7 @@ class PlantumlErd:
             primary_keys = self.database.get_primary_keys(table_name)
             foreign_keys = self.database.get_foreign_keys(table_name)
 
-            puml += f"entity \"{desc}\" as {table_short_name} {{\r\n"
+            puml += f"entity \"{desc}\" as {table_short_name} {{\n"
 
             for column in self.database.get_columns(table_name):
                 line = "  "
@@ -50,18 +50,18 @@ class PlantumlErd:
                     if self.database.is_foreign_key_laravel(column.name):
                         line += " <<FK>>"
                         if column.nullable:
-                            relations += f"{table_short_name} }}|--o| {column.name[:-3]}s : {column.name}\r\n"
+                            relations += f"{table_short_name} }}|--o| {column.name[:-3]}s : {column.name}\n"
                         else:
-                            relations += f"{table_short_name} }}|--|| {column.name[:-3]}s : {column.name}\r\n"
+                            relations += f"{table_short_name} }}|--|| {column.name[:-3]}s : {column.name}\n"
                 else:
                     if foreign_keys is not None and column.name in foreign_keys:
                         line += " <<FK>>"
 
-                puml += line + "\r\n"
+                puml += line + "\n"
 
-            puml += "}\r\n\r\n"
+            puml += "}\n\n"
 
-        puml += relations + "\r\n"
-        puml += "@enduml\r\n"
+        puml += relations + "\n"
+        puml += "@enduml\n"
 
         return puml
