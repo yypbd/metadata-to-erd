@@ -1,4 +1,5 @@
 python-dotenv
+fire
 
 SQLAlchemy
 pg8000
