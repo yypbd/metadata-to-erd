@@ -13,15 +13,6 @@ DATABASE_URL = os.environ.get("DATABASE_URL")
 database = Database(DATABASE_URL)
 erd = PlantumlErd(database)
 
-# schema = 'public'
-# use_table_comment = True
-# # relation_type = 'none'
-# relation_type = 'laravel'
-#
-# puml = erd.get_erd(schema, use_table_comment, relation_type)
-#
-# print(puml)
-
 class FireCommand:
     def show_schemas(self):
         return database.get_schemas()

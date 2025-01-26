@@ -9,8 +9,18 @@ This is a tool that automatically generates Entity Relationship Diagrams (ERD) i
 
 ## Installation
 
+### install packages
 ```bash
 pip install -r requirements.txt
+```
+
+### compose env
+
+- copy .cnv.sample to .env
+- write DATABASE_URL in SQLAlchemy url string.
+
+```dotenv
+DATABASE_URL="postgresql+pg8000://<<username>>:<<password>>@<<host>>:<<port>>/<<dbname>>"
 ```
 
 ## Usages
