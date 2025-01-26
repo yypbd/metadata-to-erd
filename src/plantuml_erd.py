@@ -14,18 +14,24 @@ class PlantumlErd:
 
         self.database.select_schema(schema)
 
-        puml = "@startuml\r\n\r\n"
+        puml = f"@startuml {schema}\r\n\r\n"
+
+        puml += f"title Entity Relationship Diagram - {schema}\r\n\r\n"
+
         relations = ""
         for table_name in self.database.table_names:
+            table_short_name = self.database.get_table_short_name(table_name)
+
             if use_table_comment:
                 desc = self.database.get_table_comment(table_name)
+                if desc is None:
+                    desc = table_short_name
             else:
-                desc = table_name
+                desc = table_short_name
             primary_keys = self.database.get_primary_keys(table_name)
             foreign_keys = self.database.get_foreign_keys(table_name)
 
-            table_short_name = self.database.get_table_short_name(table_name)
-            puml += f"entity \"{desc}\" as {table_short_name} " + "{\r\n"
+            puml += f"entity \"{desc}\" as {table_short_name} {{\r\n"
 
             for column in self.database.get_columns(table_name):
                 line = "  "
@@ -43,7 +49,10 @@ class PlantumlErd:
                 if relation_type == 'laravel':
                     if self.database.is_foreign_key_laravel(column.name):
                         line += " <<FK>>"
-                        relations += table_name + " }|--|| " + column.name[:-3] + "s : " + column.name + "\r\n"
+                        if column.nullable:
+                            relations += f"{table_short_name} }}|--o| {column.name[:-3]}s : {column.name}\r\n"
+                        else:
+                            relations += f"{table_short_name} }}|--|| {column.name[:-3]}s : {column.name}\r\n"
                 else:
                     if foreign_keys is not None and column.name in foreign_keys:
                         line += " <<FK>>"
