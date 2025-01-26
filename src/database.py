@@ -12,6 +12,7 @@ class Database:
         self.schemas = self.db_inspect.get_schema_names()
         self.metadata = MetaData()
         self.table_names = []
+        self.table_short_names = []
 
     def get_schemas(self) -> list[str]:
         return self.schemas
@@ -19,19 +20,16 @@ class Database:
     def select_schema(self, schema: str):
         self.metadata.reflect(bind=self.engine, schema=schema)
         self.table_names = self.metadata.tables.keys()
+        self.table_short_names = []
+        for table in self.metadata.tables:
+            self.table_short_names.append(self.metadata.tables[table].name)
 
-    def get_table_comment(self, table_name: str) -> str:
+    def get_table_comment(self, table_name: str) -> str | None:
         table = self.metadata.tables[table_name]
-        if table is None or table.comment is None:
-            return table_name
-
         return table.comment
 
     def get_table_short_name(self, table_name: str) -> str:
         table = self.metadata.tables[table_name]
-        if table is None or table.name is None:
-            return table_name
-
         return table.name
 
     def get_primary_keys(self, table_name: str) -> list[str]:
@@ -55,6 +53,6 @@ class Database:
     def is_foreign_key_laravel(self,  column_name: str) -> bool:
         if column_name.endswith("_id"):
             related_table_name = column_name[:-3] + "s"
-            return related_table_name in self.table_names
+            return related_table_name in self.table_short_names
 
         return False
