@@ -3,3 +3,5 @@ fire
 
 SQLAlchemy
 pg8000
+
+pymysql

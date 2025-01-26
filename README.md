@@ -20,7 +20,13 @@ pip install -r requirements.txt
 - write DATABASE_URL in SQLAlchemy url string.
 
 ```dotenv
+# postgresql
 DATABASE_URL="postgresql+pg8000://<<username>>:<<password>>@<<host>>:<<port>>/<<dbname>>"
+```
+
+```dotenv
+# mysql
+DATABASE_URL="mysql+pymysql://<<username>>:<<passwored>>@<<host>>:<<port>>/<<dbname>>?charset=utf8mb4"
 ```
 
 ## Usages
@@ -58,3 +64,7 @@ python main.py generate_erd \
 
 - [Information Engineering Diagrams](https://plantuml.com/en/ie-diagram)
 - [Entity Relationship Diagrams](https://plantuml.com/en/er-diagram)
+
+### SQLAlchemy
+
+- [SQLAlchemy Dialects](https://docs.sqlalchemy.org/en/20/dialects/index.html)

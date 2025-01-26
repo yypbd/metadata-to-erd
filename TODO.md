@@ -2,7 +2,6 @@
 
 ## Todo
 
-- [ ] mysql
 - [ ] sqlite
 - [ ] more relations processing
  
@@ -16,3 +15,4 @@
 - [x] postgres
 - [x] cli options
 - [x] saving puml
+- [x] mysql
