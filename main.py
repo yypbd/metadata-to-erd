@@ -48,9 +48,7 @@ class FireCommand:
 
 
 if __name__ == '__main__':
-    # fire.Fire(FireCommand)
+    fire.Fire(FireCommand)
 
-    puml = FireCommand().generate_erd(schema='public', use_table_comment=False, relation_type='laravel', out_filename='test.puml')
-    print(puml)
-
-    pass
+    # puml = FireCommand().generate_erd(schema='public', use_table_comment=False, relation_type='laravel', out_filename='test.puml')
+    # print(puml)
