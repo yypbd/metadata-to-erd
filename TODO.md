@@ -16,3 +16,4 @@
 - [x] cli options
 - [x] saving puml
 - [x] mysql
+- [x] left to right direction
