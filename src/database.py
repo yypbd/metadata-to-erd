@@ -1,3 +1,4 @@
+import inflect
 from sqlalchemy import create_engine, inspect, MetaData, Column
 
 
@@ -50,9 +51,19 @@ class Database:
         table = self.metadata.tables[table_name]
         return table.columns
 
-    def is_foreign_key_laravel(self,  column_name: str) -> bool:
-        if column_name.endswith("_id"):
-            related_table_name = column_name[:-3] + "s"
-            return related_table_name in self.table_short_names
+    # def is_foreign_key_laravel(self,  column_name: str) -> bool:
+    #     if column_name.endswith("_id"):
+    #         p = inflect.engine()
+    #         related_table_name = p.plural(text=column_name[:-3])
+    #         return related_table_name in self.table_short_names
+    #
+    #     return False
 
-        return False
+    def get_related_table_laravel(self,  column_name: str) -> str | None:
+        if column_name.endswith("_id"):
+            p = inflect.engine()
+            related_table_name = p.plural(text=column_name[:-3])
+            if related_table_name in self.table_short_names:
+                return related_table_name
+
+        return None

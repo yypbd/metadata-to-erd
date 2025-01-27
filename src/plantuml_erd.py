@@ -18,6 +18,8 @@ class PlantumlErd:
 
         puml += f"title Entity Relationship Diagram - {schema}\n\n"
 
+        puml += "left to right direction\n\n"
+
         relations = ""
         for table_name in self.database.table_names:
             table_short_name = self.database.get_table_short_name(table_name)
@@ -47,12 +49,14 @@ class PlantumlErd:
                         line += " <<PK>>"
 
                 if relation_type == 'laravel':
-                    if self.database.is_foreign_key_laravel(column.name):
+                    related = self.database.get_related_table_laravel(column.name)
+
+                    if related is not None:
                         line += " <<FK>>"
                         if column.nullable:
-                            relations += f"{table_short_name} }}|--o| {column.name[:-3]}s : {column.name}\n"
+                            relations += f"{table_short_name} }}|--o| {related} : {column.name}\n"
                         else:
-                            relations += f"{table_short_name} }}|--|| {column.name[:-3]}s : {column.name}\n"
+                            relations += f"{table_short_name} }}|--|| {related} : {column.name}\n"
                 else:
                     if foreign_keys is not None and column.name in foreign_keys:
                         line += " <<FK>>"
