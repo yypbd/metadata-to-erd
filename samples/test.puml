@@ -1,0 +1,121 @@
+@startuml yypbd
+
+title Entity Relationship Diagram - yypbd
+
+left to right direction
+
+entity "cache" as cache {
+  *key : text <<PK>>
+  *value : text
+  *expiration : number
+}
+
+entity "cache_locks" as cache_locks {
+  *key : text <<PK>>
+  *owner : text
+  *expiration : number
+}
+
+entity "categories" as categories {
+  *id : number <<PK>>
+  *name : text
+  *sequence_number : number
+  *user_id : number <<FK>>
+  created_at : datetime
+  updated_at : datetime
+}
+
+entity "users" as users {
+  *id : number <<PK>>
+  *name : text
+  *email : text
+  email_verified_at : datetime
+  *password : text
+  remember_token : text
+  created_at : datetime
+  updated_at : datetime
+}
+
+entity "comments" as comments {
+  *id : number <<PK>>
+  *content : text
+  *like_count : number
+  *user_id : number <<FK>>
+  *post_id : number <<FK>>
+  created_at : datetime
+  updated_at : datetime
+}
+
+entity "posts" as posts {
+  *id : number <<PK>>
+  *title : text
+  *content : text
+  *read_count : number
+  *user_id : number <<FK>>
+  category_id : number <<FK>>
+  created_at : datetime
+  updated_at : datetime
+}
+
+entity "failed_jobs" as failed_jobs {
+  *id : number <<PK>>
+  *uuid : text
+  *connection : text
+  *queue : text
+  *payload : text
+  *exception : text
+  *failed_at : datetime
+}
+
+entity "job_batches" as job_batches {
+  *id : text <<PK>>
+  *name : text
+  *total_jobs : number
+  *pending_jobs : number
+  *failed_jobs : number
+  *failed_job_ids : text
+  options : text
+  cancelled_at : number
+  *created_at : number
+  finished_at : number
+}
+
+entity "jobs" as jobs {
+  *id : number <<PK>>
+  *queue : text
+  *payload : text
+  *attempts : number
+  reserved_at : number
+  *available_at : number
+  *created_at : number
+}
+
+entity "migrations" as migrations {
+  *id : number <<PK>>
+  *migration : text
+  *batch : number
+}
+
+entity "password_reset_tokens" as password_reset_tokens {
+  *email : text <<PK>>
+  *token : text
+  created_at : datetime
+}
+
+entity "sessions" as sessions {
+  *id : text <<PK>>
+  user_id : number <<FK>>
+  ip_address : text
+  user_agent : text
+  *payload : text
+  *last_activity : number
+}
+
+categories }|--|| users : user_id
+comments }|--|| users : user_id
+comments }|--|| posts : post_id
+posts }|--|| users : user_id
+posts }|--o| categories : category_id
+sessions }|--o| users : user_id
+
+@enduml

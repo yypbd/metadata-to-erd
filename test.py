@@ -10,5 +10,5 @@ if __name__ == '__main__':
     # puml = FireCommand().generate_erd(schema='public', use_table_comment=False, relation_type='laravel')
     # print(puml)
 
-    puml = FireCommand().generate_erd(schema='yypbd', use_table_comment=False, relation_type='laravel', out_filename="test.puml")
+    puml = FireCommand().generate_erd(schema='yypbd', use_table_comment=False, relation_type='laravel', out_filename="samples/test.puml")
     print(puml)
