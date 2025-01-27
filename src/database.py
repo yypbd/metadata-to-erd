@@ -27,7 +27,7 @@ class Database:
             self.is_connected = True
 
             return True
-        except:
+        except Exception as e:
             self.engine = None
             self.db_inspect = None
             self.schemas = None
@@ -35,6 +35,8 @@ class Database:
             self.table_names = None
             self.table_short_names = None
             self.is_connected = False
+
+            print('[error] connect exception - ' + str(e))
 
             return False
 
