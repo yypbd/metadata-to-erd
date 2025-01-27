@@ -10,15 +10,21 @@ DATABASE_URL = os.environ.get("DATABASE_URL")
 
 class FireCommand:
     def show_schemas(self):
-        database = Database(DATABASE_URL)
+        database = Database()
 
-        return database.get_schemas()
+        if database.connect(DATABASE_URL):
+            return database.get_schemas()
+        else:
+            return "[error] cannot connect to database"
 
     def generate_erd(self, schema = '', use_table_comment = False, relation_type = 'none', out_filename = None):
         if out_filename is not None and os.path.exists(out_filename):
             return '[error] Exists - ' + out_filename
 
-        database = Database(DATABASE_URL)
+        database = Database()
+        if not database.connect(DATABASE_URL):
+            return "[error] cannot connect to database"
+
         erd = PlantumlErd(database)
 
         if database.get_schemas().count == 0:

@@ -7,7 +7,6 @@
  
 ## In progress
 
-- [ ] exceptions
 - [ ] tests
 
 ## Done
@@ -17,3 +16,4 @@
 - [x] saving puml
 - [x] mysql
 - [x] left to right direction
+- [x] exceptions
