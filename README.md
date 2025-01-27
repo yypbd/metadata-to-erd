@@ -68,3 +68,8 @@ python main.py generate_erd \
 ### SQLAlchemy
 
 - [SQLAlchemy Dialects](https://docs.sqlalchemy.org/en/20/dialects/index.html)
+
+## Samples
+
+- converted test.puml : laravel
+![Alt text](./samples/test.png?raw=true "test")
