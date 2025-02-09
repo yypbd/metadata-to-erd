@@ -17,3 +17,4 @@
 - [x] mysql
 - [x] left to right direction
 - [x] exceptions
+- [x] support D2 

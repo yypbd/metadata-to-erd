@@ -39,9 +39,23 @@ python main.py show_schemas
 
 ### generate_erd 
 
+#### PlantUML sample
+
 ```bash
 python main.py generate_erd \ 
   --schema=<<schema>> \
+  --engine=plantuml
+  --use_table_comment=True \
+  --relation_type=laravel \
+  --out_filename=out.puml  
+```
+
+#### D2 sample
+
+```bash
+python main.py generate_erd \ 
+  --schema=<<schema>> \
+  --engine=d2
   --use_table_comment=True \
   --relation_type=laravel \
   --out_filename=out.puml  
@@ -51,12 +65,13 @@ python main.py generate_erd \
 
 ### generate_erd options
 
-| option            | Type    | Value           | Description                                                |
-|-------------------|---------|-----------------|------------------------------------------------------------|
-| schema            | String  |                 | Database schema name.                                      |
-| use_table_comment | String  |                 | Directory where backup files will be stored.               |
-| relation_type     | String  | none<br>laravel | none: Read database FK<br>laravel: laravel migration style |
-| out_filename      | String  |                 | plantuml filename                                          |
+| option            | Type     | Value           | Description                                                |
+|-------------------|----------|-----------------|------------------------------------------------------------|
+| schema            | String   |                 | Database schema name.                                      |
+| engine            | String   | puml<br>d2      | PlantUML or D2                                             |
+| use_table_comment | String   |                 | Directory where backup files will be stored.               |
+| relation_type     | String   | none<br>laravel | none: Read database FK<br>laravel: laravel migration style |
+| out_filename      | String   |                 | plantuml filename                                          |
 
 ## Links
 
@@ -64,6 +79,10 @@ python main.py generate_erd \
 
 - [Information Engineering Diagrams](https://plantuml.com/en/ie-diagram)
 - [Entity Relationship Diagrams](https://plantuml.com/en/er-diagram)
+
+### D2
+
+= [D2](https://d2lang.com/tour/intro/)
 
 ### SQLAlchemy
 
