@@ -3,7 +3,7 @@
 
 ## Description
 
-This is a tool that automatically generates Entity Relationship Diagrams (ERD) in PlantUML using SQLAlchemy's MetaData.
+This is a tool that automatically generates Entity Relationship Diagrams (ERD) in PlantUML or D2 using SQLAlchemy's MetaData.
 
 ## Features
 
@@ -16,7 +16,7 @@ pip install -r requirements.txt
 
 ### compose env
 
-- copy .cnv.sample to .env
+- copy .env.sample to .env
 - write DATABASE_URL in SQLAlchemy url string.
 
 ```dotenv
