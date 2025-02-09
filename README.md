@@ -90,5 +90,8 @@ python main.py generate_erd \
 
 ## Samples
 
-- converted test.puml : laravel
-![Alt text](./samples/test.png?raw=true "test")
+### converted plantuml_sample.puml : laravel
+![Alt text](./samples/plantuml_sample.png?raw=true "plantuml sample")
+
+### converted d2_sample.d2 : laravel
+![Alt text](./samples/d2_sample.svg?raw=true "d2 sample")

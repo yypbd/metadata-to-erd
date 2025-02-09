@@ -1,0 +1,128 @@
+yypbd: {
+  cache: {
+    shape: sql_table
+    key: text {constraint: primary_key}
+    value: text
+    expiration: number
+  }
+
+  cache_locks: {
+    shape: sql_table
+    key: text {constraint: primary_key}
+    owner: text
+    expiration: number
+  }
+
+  categories: {
+    shape: sql_table
+    id: number {constraint: primary_key}
+    name: text
+    sequence_number: number
+    user_id: number {constraint: foreign_key}
+    created_at: datetime
+    updated_at: datetime
+  }
+
+  users: {
+    shape: sql_table
+    id: number {constraint: primary_key}
+    name: text
+    email: text
+    email_verified_at: datetime
+    password: text
+    remember_token: text
+    created_at: datetime
+    updated_at: datetime
+  }
+
+  comments: {
+    shape: sql_table
+    id: number {constraint: primary_key}
+    content: text
+    like_count: number
+    user_id: number {constraint: foreign_key}
+    post_id: number {constraint: foreign_key}
+    created_at: datetime
+    updated_at: datetime
+  }
+
+  posts: {
+    shape: sql_table
+    id: number {constraint: primary_key}
+    title: text
+    content: text
+    read_count: number
+    user_id: number {constraint: foreign_key}
+    category_id: number {constraint: foreign_key}
+    created_at: datetime
+    updated_at: datetime
+  }
+
+  failed_jobs: {
+    shape: sql_table
+    id: number {constraint: primary_key}
+    uuid: text
+    connection: text
+    queue: text
+    payload: text
+    exception: text
+    failed_at: datetime
+  }
+
+  job_batches: {
+    shape: sql_table
+    id: text {constraint: primary_key}
+    name: text
+    total_jobs: number
+    pending_jobs: number
+    failed_jobs: number
+    failed_job_ids: text
+    options: text
+    cancelled_at: number
+    created_at: number
+    finished_at: number
+  }
+
+  jobs: {
+    shape: sql_table
+    id: number {constraint: primary_key}
+    queue: text
+    payload: text
+    attempts: number
+    reserved_at: number
+    available_at: number
+    created_at: number
+  }
+
+  migrations: {
+    shape: sql_table
+    id: number {constraint: primary_key}
+    migration: text
+    batch: number
+  }
+
+  password_reset_tokens: {
+    shape: sql_table
+    email: text {constraint: primary_key}
+    token: text
+    created_at: datetime
+  }
+
+  sessions: {
+    shape: sql_table
+    id: text {constraint: primary_key}
+    user_id: number {constraint: foreign_key}
+    ip_address: text
+    user_agent: text
+    payload: text
+    last_activity: number
+  }
+
+  categories.user_id -> users.id
+  comments.user_id -> users.id
+  comments.post_id -> posts.id
+  posts.user_id -> users.id
+  posts.category_id -> categories.id
+  sessions.user_id -> users.id
+
+}
