@@ -9,11 +9,6 @@ This is a tool that automatically generates Entity Relationship Diagrams (ERD) i
 
 ## Installation
 
-### install packages
-```bash
-pip install -r requirements.txt
-```
-
 ### compose env
 
 - copy .env.sample to .env
@@ -34,7 +29,7 @@ DATABASE_URL="mysql+pymysql://<<username>>:<<passwored>>@<<host>>:<<port>>/<<dbn
 ### show_schemas
 
 ```bash
-python main.py show_schemas
+uv run main.py show_schemas
 ```
 
 ### generate_erd 
@@ -42,9 +37,9 @@ python main.py show_schemas
 #### PlantUML sample
 
 ```bash
-python main.py generate_erd \ 
+uv run main.py generate_erd \
   --schema=<<schema>> \
-  --engine=plantuml
+  --engine=plantuml \
   --use_table_comment=True \
   --relation_type=laravel \
   --out_filename=out.puml  
@@ -53,9 +48,9 @@ python main.py generate_erd \
 #### D2 sample
 
 ```bash
-python main.py generate_erd \ 
+uv run main.py generate_erd \ 
   --schema=<<schema>> \
-  --engine=d2
+  --engine=d2 \
   --use_table_comment=True \
   --relation_type=laravel \
   --out_filename=out.puml  
