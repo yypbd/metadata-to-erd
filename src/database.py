@@ -61,6 +61,13 @@ class Database:
             return None
 
         table = self.metadata.tables[table_name]
+        if table.comment is None or table.comment == "":
+            return table.name
+
+        # If table.comment has multiple lines, use only the first line.
+        if "\n" in table.comment:
+            return table.comment.split("\n")[0].strip()
+
         return table.comment
 
     def get_table_short_name(self, table_name: str) -> str:
