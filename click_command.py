@@ -11,7 +11,7 @@ load_dotenv()
 DATABASE_URL = os.environ.get("DATABASE_URL")
 
 @click.command()
-def show_schemas():
+def schemas():
     database = Database()
 
     if database.connect(DATABASE_URL):
@@ -27,7 +27,7 @@ def show_schemas():
 @click.option("-c", "--use_table_comment", type=bool, default=False, help="Use table comment as description.")
 @click.option("-r", "--relation_type", default='none', type=click.Choice(['none', 'laravel']), help="none: Read database FK, laravel: laravel migration style")
 @click.option("-o", "--out_filename", default=None, help="Output filename for the ERD.")
-def generate_erd(schema, engine, use_table_comment, relation_type, out_filename):
+def erd(schema, engine, use_table_comment, relation_type, out_filename):
     if out_filename is not None and os.path.exists(out_filename):
         click.echo('[error] Exists - ' + out_filename)
         return
