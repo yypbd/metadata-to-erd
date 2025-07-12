@@ -5,7 +5,8 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
-    "fire>=0.7.0",
+    "click>=8.2.1",
+    "cryptography>=45.0.5",
     "inflect>=7.5.0",
     "pg8000>=1.31.2",
     "pymysql>=1.1.1",

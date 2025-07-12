@@ -1,4 +1,4 @@
-from fire_command import FireCommand
+from click_command import FireCommand
 
 
 if __name__ == '__main__':
