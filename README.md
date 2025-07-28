@@ -66,7 +66,7 @@ uv run main.py generate_erd \
 | engine            | String   | puml<br>d2      | PlantUML or D2                                             |
 | use_table_comment | String   |                 | Directory where backup files will be stored.               |
 | relation_type     | String   | none<br>laravel | none: Read database FK<br>laravel: laravel migration style |
-| out_filename      | String   |                 | plantuml filename                                          |
+| out_filename      | String   |                 | erd filename                                               |
 
 ## Links
 

@@ -48,4 +48,4 @@ class FireCommand:
                 text_file.write(output)
                 text_file.close()
 
-            return "[success] Save puml to " + out_filename
+            return "[success] Save uml to " + out_filename
