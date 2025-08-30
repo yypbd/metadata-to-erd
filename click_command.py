@@ -1,4 +1,5 @@
 import os
+import sys
 
 import click
 from dotenv import load_dotenv
@@ -30,32 +31,36 @@ def schemas():
 @click.option("-o", "--out_filename", default=None, help="Output filename for the ERD.")
 def erd(schema, engine, use_table_comment, relation_type, out_filename):
     if out_filename is not None and os.path.exists(out_filename):
-        click.echo('[error] Exists - ' + out_filename)
-        return
+        click.echo(f'[error] File exists - {out_filename}')
+        sys.exit(1)
 
     database = Database()
-    if not database.connect(DATABASE_URL):
-        click.echo("[error] cannot connect to database")
-        return
+    try:
+        if not database.connect(DATABASE_URL):
+            click.echo("[error] Cannot connect to database")
+            sys.exit(1)
 
-    if engine == 'd2':
-        erd = D2Erd(database)
-    elif engine == 'mermaid':
-        erd = MermaidErd(database)
-    else:
-        erd = PlantumlErd(database)
+        if engine == 'd2':
+            erd = D2Erd(database)
+        elif engine == 'mermaid':
+            erd = MermaidErd(database)
+        else:
+            erd = PlantumlErd(database)
 
-    schemas = database.get_schemas()
-    if not schemas:
-        click.echo('[error] Schema is empty')
-        return
+        schemas = database.get_schemas()
+        if not schemas:
+            click.echo('[error] No schemas found')
+            sys.exit(1)
 
-    if not schema:
-        schema = schemas[0]
+        if not schema:
+            schema = schemas[0]
 
-    if schema not in schemas:
-        click.echo('[error] Not exists schemas')
-        return
+        if schema not in schemas:
+            click.echo(f'[error] Schema "{schema}" not found')
+            sys.exit(1)
+    except Exception as e:
+        click.echo(f"[error] {str(e)}")
+        sys.exit(1)
 
     output = erd.get_erd(schema, use_table_comment, relation_type)
     if out_filename is None:

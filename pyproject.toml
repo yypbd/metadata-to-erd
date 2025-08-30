@@ -1,15 +1,38 @@
 [project]
 name = "metadata-to-erd"
 version = "0.1.0"
-description = "Add your description here"
-readme = "README.md"
-requires-python = ">=3.13"
+description = "Generate ERD from database metadata"
+authors = [
+    { name = "yypbd", email = "yypbd@qq.com" }
+]
 dependencies = [
-    "click>=8.2.1",
-    "cryptography>=45.0.5",
-    "inflect>=7.5.0",
-    "pg8000>=1.31.2",
-    "pymysql>=1.1.1",
-    "python-dotenv>=1.1.0",
-    "sqlalchemy>=2.0.40",
+    "click>=8.1.7",
+    "python-dotenv>=1.0.1",
+    "SQLAlchemy>=2.0.25",
+    "inflect>=7.0.0",
+    "pg8000>=1.30.3",
+    "PyMySQL>=1.1.0",
+]
+readme = "README.md"
+requires-python = ">= 3.8"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.rye]
+managed = true
+dev-dependencies = [
+    "pytest>=8.0.0",
+    "pytest-cov>=4.1.0",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+markers = [
+    "integration: marks tests as integration tests (deselect with '-m \"not integration\"')",
 ]

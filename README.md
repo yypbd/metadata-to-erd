@@ -1,4 +1,3 @@
-
 # MetaData To ERD
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
@@ -136,3 +135,24 @@ uv run main.py erd \
 ### converted mermaid_sample.mmd : laravel
 
 ![Alt text](./samples/mermaid_sample.mmd "mermaid sample")
+
+## 🧪 Testing
+
+Run tests using uv:
+
+```bash
+# Run all tests
+uv run pytest
+
+# Run tests with coverage report
+uv run pytest --cov=src tests/
+
+# Run specific test file
+uv run pytest tests/test_commands.py
+
+# Run tests with output
+uv run pytest -v
+
+# Run tests with specific marker
+uv run pytest -m "not integration"
+```
