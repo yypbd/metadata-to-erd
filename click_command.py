@@ -5,6 +5,7 @@ from dotenv import load_dotenv
 
 from src.d2_erd import D2Erd
 from src.database import Database
+from src.mermaid_erd import MermaidErd
 from src.plantuml_erd import PlantumlErd
 
 load_dotenv()
@@ -23,7 +24,7 @@ def schemas():
 
 @click.command()
 @click.option("-s", "--schema", default='', help="Database schema name.")
-@click.option("-e", "--engine", default='puml', type=click.Choice(['puml', 'd2']), help="PlantUML or D2")
+@click.option("-e", "--engine", default='puml', type=click.Choice(['puml', 'd2', 'mermaid']), help="PlantUML, D2 or Mermaid")
 @click.option("-c", "--use_table_comment", type=bool, default=False, help="Use table comment as description.")
 @click.option("-r", "--relation_type", default='none', type=click.Choice(['none', 'laravel']), help="none: Read database FK, laravel: laravel migration style")
 @click.option("-o", "--out_filename", default=None, help="Output filename for the ERD.")
@@ -39,6 +40,8 @@ def erd(schema, engine, use_table_comment, relation_type, out_filename):
 
     if engine == 'd2':
         erd = D2Erd(database)
+    elif engine == 'mermaid':
+        erd = MermaidErd(database)
     else:
         erd = PlantumlErd(database)
 
@@ -60,4 +63,16 @@ def erd(schema, engine, use_table_comment, relation_type, out_filename):
     else:
         with open(out_filename, "w") as text_file:
             text_file.write(output)
-        click.echo("[success] Save puml to " + out_filename)
+        click.echo("[success] Save to " + out_filename)
+
+        # Generate preview for Mermaid files
+        # if engine == 'mermaid' and out_filename.endswith('.mmd'):
+        #     svg_filename = out_filename[:-4] + '.svg'
+        #     import subprocess
+        #     try:
+        #         subprocess.run(['mmdc', '-i', out_filename, '-o', svg_filename], check=True)
+        #         click.echo("[success] Generated preview: " + svg_filename)
+        #     except subprocess.CalledProcessError:
+        #         click.echo("[warning] Could not generate preview. Is @mermaid-js/mermaid-cli installed?")
+        #     except FileNotFoundError:
+        #         click.echo("[warning] Could not generate preview. Please install @mermaid-js/mermaid-cli using: npm install -g @mermaid-js/mermaid-cli")

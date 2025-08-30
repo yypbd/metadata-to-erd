@@ -4,10 +4,10 @@
 
 - [ ] sqlite
 - [ ] more relations processing
- 
-## In progress
-
 - [ ] tests
+- [ ] export to svg, png ...
+
+## In progress
 
 ## Done
 
@@ -17,4 +17,5 @@
 - [x] mysql
 - [x] left to right direction
 - [x] exceptions
-- [x] support D2 
+- [x] support D2
+- [x] support mermaid

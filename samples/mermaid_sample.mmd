@@ -1,0 +1,117 @@
+erDiagram
+
+    %% Entity Relationship Diagram - yypbd
+
+    cache {
+        text key PK "required"
+        text value "required"
+        number expiration "required"
+    }
+
+    cache_locks {
+        text key PK "required"
+        text owner "required"
+        number expiration "required"
+    }
+
+    categories {
+        number id PK "required"
+        text name "required"
+        number sequence_number "required"
+        number user_id FK "required"
+        datetime created_at
+        datetime updated_at
+    }
+
+    users {
+        number id PK "required"
+        text name "required"
+        text email "required"
+        datetime email_verified_at
+        text password "required"
+        text remember_token
+        datetime created_at
+        datetime updated_at
+    }
+
+    comments {
+        number id PK "required"
+        text content "required"
+        number like_count "required"
+        number user_id FK "required"
+        number post_id FK "required"
+        datetime created_at
+        datetime updated_at
+    }
+
+    posts {
+        number id PK "required"
+        text title "required"
+        text content "required"
+        number read_count "required"
+        number user_id FK "required"
+        number category_id FK
+        datetime created_at
+        datetime updated_at
+    }
+
+    failed_jobs {
+        number id PK "required"
+        text uuid "required"
+        text connection "required"
+        text queue "required"
+        text payload "required"
+        text exception "required"
+        datetime failed_at "required"
+    }
+
+    job_batches {
+        text id PK "required"
+        text name "required"
+        number total_jobs "required"
+        number pending_jobs "required"
+        number failed_jobs "required"
+        text failed_job_ids "required"
+        text options
+        number cancelled_at
+        number created_at "required"
+        number finished_at
+    }
+
+    jobs {
+        number id PK "required"
+        text queue "required"
+        text payload "required"
+        number attempts "required"
+        number reserved_at
+        number available_at "required"
+        number created_at "required"
+    }
+
+    migrations {
+        number id PK "required"
+        text migration "required"
+        number batch "required"
+    }
+
+    password_reset_tokens {
+        text email PK "required"
+        text token "required"
+        datetime created_at
+    }
+
+    sessions {
+        text id PK "required"
+        number user_id FK
+        text ip_address
+        text user_agent
+        text payload "required"
+        number last_activity "required"
+    }
+
+    categories ||--|| users : user_id
+    comments ||--|| users : user_id
+    comments ||--|| posts : post_id
+    posts ||--|| users : user_id
+    posts ||--o| categories : category_id
+    sessions ||--o| users : user_id

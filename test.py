@@ -37,11 +37,22 @@ if __name__ == '__main__':
     # print(result.output)
 
     # Test erd command
+    # Test d2 output
+    # result = runner.invoke(erd, [
+    #     '--schema', 'yypbd',
+    #     '--engine', 'd2',
+    #     '--use_table_comment', 'False',
+    #     '--relation_type', 'laravel',
+    #     '--out_filename', 'samples/d2_sample.d2'
+    # ])
+    # print(result.output)
+
+    # Test mermaid output
     result = runner.invoke(erd, [
         '--schema', 'yypbd',
-        '--engine', 'd2',
+        '--engine', 'mermaid',
         '--use_table_comment', 'False',
         '--relation_type', 'laravel',
-        '--out_filename', 'samples/d2_sample.d2'
+        '--out_filename', 'samples/mermaid_sample.mmd'
     ])
     print(result.output)
