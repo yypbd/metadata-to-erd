@@ -1,6 +1,13 @@
-import fire
+import click
 
-from fire_command import FireCommand
+from click_command import schemas, erd
+
+@click.group()
+def cli():
+    pass
+
+cli.add_command(schemas)
+cli.add_command(erd)
 
 if __name__ == '__main__':
-    fire.Fire(FireCommand)
+    cli()
