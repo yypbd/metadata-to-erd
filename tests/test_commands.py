@@ -3,6 +3,7 @@ import pytest
 from click.testing import CliRunner
 from click_command import erd, schemas
 from dotenv import load_dotenv
+from main import cli
 
 @pytest.fixture
 def runner():
@@ -68,3 +69,46 @@ def test_erd_file_exists(runner, env_setup, tmp_path):
     result = runner.invoke(erd, ["--out_filename", str(output_file)])
     # 파일이 존재하면 "File exists" 에러가 발생해야 함
     assert result.exit_code == 1
+
+
+def test_project_command_schemas(runner, env_setup, tmp_path):
+    project_file = tmp_path / "proj.toml"
+    project_file.write_text(
+        '\n'.join(
+            [
+                'command = "schemas"',
+                "",
+                "[db]",
+                'database_url = "sqlite:///:memory:"',
+                "",
+            ]
+        ),
+        encoding="utf-8",
+    )
+
+    result = runner.invoke(cli, ["project", "--file", str(project_file)])
+    assert result.exit_code == 0
+
+
+def test_project_command_erd_writes_file(runner, env_setup, tmp_path):
+    project_file = tmp_path / "proj.toml"
+    project_file.write_text(
+        '\n'.join(
+            [
+                'command = "erd"',
+                "",
+                "[db]",
+                'database_url = "sqlite:///:memory:"',
+                "",
+                "[erd]",
+                'engine = "puml"',
+                'out_filename = "out.puml"',
+                "",
+            ]
+        ),
+        encoding="utf-8",
+    )
+
+    result = runner.invoke(cli, ["project", "--file", str(project_file)])
+    assert result.exit_code == 0
+    assert (tmp_path / "out.puml").exists()

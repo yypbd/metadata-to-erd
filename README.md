@@ -56,6 +56,33 @@ DATABASE_URL="mysql+pymysql://<<username>>:<<passwored>>@<<host>>:<<port>>/<<dbn
 uv run main.py schemas
 ```
 
+### 🗂️ Project File (TOML)
+
+Instead of typing DB settings and options on the command line every time, you can run `schemas` or `erd` from a **single project TOML file**.
+
+#### ✅ Example: `myproj.erd.toml`
+
+```toml
+command = "erd" # "schemas" or "erd"
+
+[db]
+# If omitted, env DATABASE_URL will be used.
+database_url = "sqlite:///./example.db"
+
+[erd]
+schema = ""                 # empty => first available schema
+engine = "puml"             # puml|d2|mermaid
+use_table_comment = false
+relation_type = "none"      # none|laravel
+out_filename = "out.puml"   # relative path is resolved from project file directory
+```
+
+#### ▶️ Run with project file
+
+```bash
+uv run main.py project --file myproj.erd.toml
+```
+
 ### 🎨 Generate ERD
 
 #### 📊 PlantUML Sample
@@ -63,7 +90,7 @@ uv run main.py schemas
 ```bash
 uv run main.py erd \
   --schema=<<schema>> \
-  --engine=plantuml \
+  --engine=puml \
   --use_table_comment=True \
   --relation_type=laravel \
   --out_filename=out.puml

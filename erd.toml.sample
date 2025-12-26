@@ -1,0 +1,12 @@
+command = "erd" # "schemas" or "erd"
+
+[db]
+# If omitted, env DATABASE_URL will be used.
+database_url = "sqlite:///./example.db"
+
+[erd]
+schema = ""                 # empty => first available schema
+engine = "puml"             # puml|d2|mermaid
+use_table_comment = false
+relation_type = "none"      # none|laravel
+out_filename = "out.puml"   # relative path is resolved from project file directory
