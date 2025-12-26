@@ -1,92 +1,158 @@
-
 # MetaData To ERD
 
-## Description
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Python: 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
+[![SQLAlchemy](https://img.shields.io/badge/SQLAlchemy-2.0+-green.svg)](https://www.sqlalchemy.org/)
 
-This is a tool that automatically generates Entity Relationship Diagrams (ERD) in PlantUML or D2 using SQLAlchemy's MetaData.
+## 📝 Description
 
-## Features
+This is a tool that automatically generates Entity Relationship Diagrams (ERD) in PlantUML, D2, or Mermaid format using SQLAlchemy's MetaData.
 
-## Installation
+## ✨ Features
 
-### compose env
+- Generate ERD diagrams from database metadata using SQLAlchemy
+- Support multiple output formats
+  - PlantUML
+  - D2
+  - Mermaid
+- Support multiple databases
+  - PostgreSQL
+  - MySQL
+- Relationship detection
+  - Standard foreign key relationships
+  - Laravel-style naming conventions
+- Customization options
+  - Table comments
+  - Layout direction
+
+## 🚀 Installation
+
+### 🔧 Sync uv
+
+```bash
+uv sync
+```
+
+### 🔧 Environment Setup
 
 - copy .env.sample to .env
 - write DATABASE_URL in SQLAlchemy url string.
 
-```dotenv
+```properties
 # postgresql
 DATABASE_URL="postgresql+pg8000://<<username>>:<<password>>@<<host>>:<<port>>/<<dbname>>"
 ```
 
-```dotenv
+```properties
 # mysql
 DATABASE_URL="mysql+pymysql://<<username>>:<<passwored>>@<<host>>:<<port>>/<<dbname>>?charset=utf8mb4"
 ```
 
-## Usages
+## 📖 Usage
 
-### show_schemas
+### 📋 List Schemas
 
 ```bash
-uv run main.py show_schemas
+uv run main.py schemas
 ```
 
-### generate_erd 
+### 🎨 Generate ERD
 
-#### PlantUML sample
+#### 📊 PlantUML Sample
 
 ```bash
-uv run main.py generate_erd \
+uv run main.py erd \
   --schema=<<schema>> \
   --engine=plantuml \
   --use_table_comment=True \
   --relation_type=laravel \
-  --out_filename=out.puml  
+  --out_filename=out.puml
 ```
 
-#### D2 sample
+#### 📑 D2 Sample
 
 ```bash
-uv run main.py generate_erd \ 
+uv run main.py erd \
   --schema=<<schema>> \
   --engine=d2 \
   --use_table_comment=True \
   --relation_type=laravel \
-  --out_filename=out.puml  
+  --out_filename=out.d2
 ```
 
-## Options
+#### 📈 Mermaid Sample
 
-### generate_erd options
+```bash
+uv run main.py erd \
+  --schema=<<schema>> \
+  --engine=mermaid \
+  --use_table_comment=True \
+  --relation_type=laravel \
+  --out_filename=out.mmd
+```
 
-| option            | Type     | Value           | Description                                                |
-|-------------------|----------|-----------------|------------------------------------------------------------|
-| schema            | String   |                 | Database schema name.                                      |
-| engine            | String   | puml<br>d2      | PlantUML or D2                                             |
-| use_table_comment | String   |                 | Directory where backup files will be stored.               |
-| relation_type     | String   | none<br>laravel | none: Read database FK<br>laravel: laravel migration style |
-| out_filename      | String   |                 | erd filename                                               |
+## ⚙️ Options
 
-## Links
+### 🛠️ ERD Options
 
-### PlantUML
+| Option            | Type     | Values          | Description                                          | Default |
+|-------------------|----------|-----------------|------------------------------------------------------|---------|
+| `schema`          | String   | Any schema name | Database schema to analyze                          | First available schema |
+| `engine`          | String   | `puml`<br>`d2`<br>`mermaid` | Output format to generate | `puml` |
+| `use_table_comment` | Boolean | `True`<br>`False` | Use table comments in diagram | `False` |
+| `relation_type`   | String   | `none`<br>`laravel` | Relationship detection method:<br>• none: Use database FK<br>• laravel: Use Laravel naming | `none` |
+| `out_filename`    | String   | Any valid path  | Output file path (prints to stdout if not specified) | None |
+
+## 🔗 Links
+
+### 📌 PlantUML
 
 - [Information Engineering Diagrams](https://plantuml.com/en/ie-diagram)
 - [Entity Relationship Diagrams](https://plantuml.com/en/er-diagram)
 
-### D2
+### 📌 D2
 
-= [D2](https://d2lang.com/tour/intro/)
+- [D2](https://d2lang.com/tour/intro/)
 
-### SQLAlchemy
+### 📌 Mermaid
+
+- [Entity Relationship Diagrams](https://mermaid.js.org/syntax/entityRelationshipDiagram.html)
+
+### 📌 SQLAlchemy
 
 - [SQLAlchemy Dialects](https://docs.sqlalchemy.org/en/20/dialects/index.html)
 
-## Samples
+## 📊 Samples
 
 ### converted plantuml_sample.puml : laravel
+
 ![Alt text](./samples/plantuml_sample.png?raw=true "plantuml sample")
 
 ### converted d2_sample.d2 : laravel
+
 ![Alt text](./samples/d2_sample.svg?raw=true "d2 sample")
+
+### converted mermaid_sample.mmd : laravel
+
+![Alt text](./samples/mermaid_sample.mmd "mermaid sample")
+
+## 🧪 Testing
+
+Run tests using uv:
+
+```bash
+# Run all tests
+uv run pytest
+
+# Run tests with coverage report
+uv run pytest --cov=src tests/
+
+# Run specific test file
+uv run pytest tests/test_commands.py
+
+# Run tests with output
+uv run pytest -v
+
+# Run tests with specific marker
+uv run pytest -m "not integration"
+```

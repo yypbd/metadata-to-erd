@@ -1,20 +1,52 @@
+# Metadata to ERD - Todo List
 
+## 🚀 Planned Features
 
-## Todo
+### Database Support
 
-- [ ] sqlite
-- [ ] more relations processing
- 
-## In progress
+- [ ] Add SQLite support
+- [ ] Add more relationship processing styles
+  - [ ] Django ORM style
+  - [ ] Ruby on Rails style
+  - [ ] JPA/Hibernate style
 
-- [ ] tests
+### Tool Enhancements
 
-## Done
+- [ ] Table filtering functionality
+  - [ ] Include/exclude pattern support
+  - [ ] Regex-based filtering
+- [ ] Layout customization
+  - [ ] Table arrangement direction
+  - [ ] Grouping support
+- [ ] Export
+  - [ ] SVG format
+  - [ ] PNG format
+  - [ ] PDF format
 
-- [x] postgres
-- [x] cli options
-- [x] saving puml
-- [x] mysql
-- [x] left to right direction
-- [x] exceptions
-- [x] support D2 
+### Testing & Quality
+
+- [ ] Write test code
+  - [ ] Unit tests
+  - [ ] Integration tests
+  - [ ] Database-specific tests
+
+## 🔄 In Progress
+
+## ✅ Completed
+
+### Database Support
+
+- [x] PostgreSQL support
+- [x] MySQL support
+
+### Tool Features
+
+- [x] Add CLI options
+- [x] PlantUML support
+  - [x] Left-to-right layout
+- [x] D2 support
+- [x] Mermaid support
+
+### System Improvements
+
+- [x] Exception handling implementation

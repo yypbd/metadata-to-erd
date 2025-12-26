@@ -14,10 +14,14 @@ class Database:
 
     def connect(self, database_url: str) -> bool:
         try:
-            self.engine = create_engine(
-                database_url,
-                isolation_level="REPEATABLE READ",
-            )
+            # SQLite uses different isolation levels
+            if database_url.startswith('sqlite'):
+                self.engine = create_engine(database_url)
+            else:
+                self.engine = create_engine(
+                    database_url,
+                    isolation_level="REPEATABLE READ",
+                )
 
             self.db_inspect = inspect(self.engine)
             self.schemas = self.db_inspect.get_schema_names()

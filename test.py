@@ -1,23 +1,58 @@
-from fire_command import FireCommand
-
+from click.testing import CliRunner
+from click_command import erd, schemas
 
 if __name__ == '__main__':
-    # print(FireCommand().show_schemas())
-    #
+    runner = CliRunner()
+
+    # Test schemas command
+    # result = runner.invoke(schemas)
+    # print(result.output)
 
     # == postgres sample
-    # puml = FireCommand().generate_erd(schema='public', engine='puml', use_table_comment=False, relation_type='laravel', out_filename='plantuml_sample.puml')
-    # print(puml)
-    #
-    # puml = FireCommand().generate_erd(schema='public', engine='puml', use_table_comment=False, relation_type='laravel')
-    # print(puml)
+    # result = runner.invoke(erd, [
+    #     '--schema', 'public',
+    #     '--engine', 'puml',
+    #     '--use_table_comment', 'False',
+    #     '--relation_type', 'laravel',
+    #     '--out_filename', 'plantuml_sample.puml'
+    # ])
+    # print(result.output)
+
+    # result = runner.invoke(erd, [
+    #     '--schema', 'public',
+    #     '--engine', 'puml',
+    #     '--use_table_comment', 'False',
+    #     '--relation_type', 'laravel'
+    # ])
+    # print(result.output)
 
     # == mysql sample
-    # puml = FireCommand().generate_erd(schema='yypbd', engine='puml', use_table_comment=False, relation_type='laravel', out_filename="samples/plantuml_sample.puml")
-    # print(puml)
-    # d2 = FireCommand().generate_erd(schema='yypbd', engine='d2', use_table_comment=False, relation_type='laravel', out_filename="samples/d2_sample.d2")
-    # print(d2)
+    # result = runner.invoke(erd, [
+    #     '--schema', 'yypbd',
+    #     '--engine', 'puml',
+    #     '--use_table_comment', 'False',
+    #     '--relation_type', 'laravel',
+    #     '--out_filename', 'samples/plantuml_sample.puml'
+    # ])
+    # print(result.output)
 
-    # puml = FireCommand().generate_erd(schema='vnm_hub', engine='puml', use_table_comment=False, relation_type='none', out_filename="vnm_hub.puml")
-    # puml = FireCommand().generate_erd(schema='vnm_core', engine='puml', use_table_comment=False, relation_type='laravel', out_filename="vnm_core.puml")
-    puml = FireCommand().generate_erd(schema='vnm_core', engine='puml', use_table_comment=False, relation_type='custom', out_filename="vnm_core.puml")
+    # Test erd command
+    # Test d2 output
+    # result = runner.invoke(erd, [
+    #     '--schema', 'yypbd',
+    #     '--engine', 'd2',
+    #     '--use_table_comment', 'False',
+    #     '--relation_type', 'laravel',
+    #     '--out_filename', 'samples/d2_sample.d2'
+    # ])
+    # print(result.output)
+
+    # Test mermaid output
+    result = runner.invoke(erd, [
+        '--schema', 'yypbd',
+        '--engine', 'mermaid',
+        '--use_table_comment', 'False',
+        '--relation_type', 'laravel',
+        '--out_filename', 'samples/mermaid_sample.mmd'
+    ])
+    print(result.output)
