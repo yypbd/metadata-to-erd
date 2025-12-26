@@ -57,6 +57,16 @@ class PlantumlErd:
                             relations += f"{table_short_name} }}|--o| {related} : {column.name}\n"
                         else:
                             relations += f"{table_short_name} }}|--|| {related} : {column.name}\n"
+                elif relation_type == 'custom':
+                    related = self.database.get_related_table_custom(column.name)
+
+                    if related is not None:
+                        if related.lower() != table_short_name.lower():
+                            line += " <<FK>>"
+                            if column.nullable:
+                                relations += f"{table_short_name} }}|--o| {related} : {column.name}\n"
+                            else:
+                                relations += f"{table_short_name} }}|--|| {related} : {column.name}\n"
                 else:
                     if foreign_keys is not None and column.name in foreign_keys:
                         line += " <<FK>>"

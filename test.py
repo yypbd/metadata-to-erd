@@ -15,5 +15,9 @@ if __name__ == '__main__':
     # == mysql sample
     # puml = FireCommand().generate_erd(schema='yypbd', engine='puml', use_table_comment=False, relation_type='laravel', out_filename="samples/plantuml_sample.puml")
     # print(puml)
-    d2 = FireCommand().generate_erd(schema='yypbd', engine='d2', use_table_comment=False, relation_type='laravel', out_filename="samples/d2_sample.d2")
-    print(d2)
+    # d2 = FireCommand().generate_erd(schema='yypbd', engine='d2', use_table_comment=False, relation_type='laravel', out_filename="samples/d2_sample.d2")
+    # print(d2)
+
+    # puml = FireCommand().generate_erd(schema='vnm_hub', engine='puml', use_table_comment=False, relation_type='none', out_filename="vnm_hub.puml")
+    # puml = FireCommand().generate_erd(schema='vnm_core', engine='puml', use_table_comment=False, relation_type='laravel', out_filename="vnm_core.puml")
+    puml = FireCommand().generate_erd(schema='vnm_core', engine='puml', use_table_comment=False, relation_type='custom', out_filename="vnm_core.puml")

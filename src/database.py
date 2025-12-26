@@ -123,3 +123,26 @@ class Database:
                 return related_table_name
 
         return None
+
+    def get_related_table_custom(self,  column_name: str) -> str | None:
+        if not self.is_connected:
+            return None
+
+        if column_name.lower().endswith("_id"):
+            p = inflect.engine()
+            related_table_name = p.plural(text=column_name[:-3])
+
+            lowercase_table_short_names = list(map(lambda x: x.lower(), self.table_short_names))
+
+            if related_table_name.lower() in lowercase_table_short_names:
+                for table in self.table_short_names:
+                    if table.lower() == related_table_name.lower():
+                        return table
+
+            related_table_name = text=column_name[:-3]
+            if related_table_name.lower() in lowercase_table_short_names:
+                for table in self.table_short_names:
+                    if table.lower() == related_table_name.lower():
+                        return table
+
+        return None
